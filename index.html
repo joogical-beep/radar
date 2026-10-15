@@ -142,8 +142,10 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
         <label><input type="checkbox" id="p4">أمن وطني مسؤوليتي، والبلاغ عبر تطبيق «كلنا أمن».</label>
       </div>
       <p class="foot" id="stamp"></p>
+      <button class="primary" id="send">أرسلي نتيجتي لمعلمتي</button>
+      <p class="foot" id="sent"></p>
     </div>
-    <p class="shot" style="margin-top:14px">صوّري هذه البطاقة وأرسليها لمعلمتك في محادثة الفصل 📸</p>
+    <p class="shot" style="margin-top:14px">علّمي على بنود العهد، واضغطي «أرسلي نتيجتي»، ثم صوّري البطاقة 📸</p>
     <button class="ghost" id="again" style="margin-top:10px;width:100%">أعيدي المحاولة</button>
   </section>
 
@@ -161,6 +163,15 @@ const Q=[
  {s:"مبادرة تطوعية",v:true,t:"بمناسبة اليوم الوطني: حملة «ازرع ظلّ» لزراعة ١٠٠ شجرة في حيّنا بالتعاون مع البلدية 🌳🇸🇦",a:"share",sig:"إشارة: جهة معروفة + عمل يخدم المجتمع",why:"المبادرات التطوعية الموثوقة تعبير عملي عن الانتماء. شاركيها وكوني جزءًا منها."},
  {s:"حساب مجهول",v:false,t:"قبيلة فلان كذا… ومنطقة كذا أهلها ما يستاهلون. ريتويت إذا توافق 👇",a:"stop",sig:"إشارة: تعميم وكراهية وتفرقة",why:"خطاب الكراهية يفرّق أبناء الوطن الواحد. وحدتنا قوتنا، فلا نعيد نشر ما يفرّقنا."}
 ];
+const SB="https://gtgnekbrkczlszrwwuaz.supabase.co",SK="sb_publishable_hr0MOQOu8JEo3BcMnv1r8g_EyVjpb7_";
+let saved=false;
+function save(){ if(saved) return; saved=true;
+  const pl=[...document.querySelectorAll('.pledge input')].filter(c=>c.checked).length;
+  fetch(SB+"/rest/v1/radar_results",{method:"POST",headers:{"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":"application/json","Prefer":"return=minimal"},
+    body:JSON.stringify({name:($('nm').value.trim()||'بدون اسم').slice(0,60),class:$('cls').value,score:score,pledge:pl})})
+   .then(r=>{ $('sent').textContent=r.ok?'✓ وصلت نتيجتك لمعلمتك':'لم تُرسل النتيجة، أرسلي صورة البطاقة'; })
+   .catch(()=>{ $('sent').textContent='لم تُرسل النتيجة، أرسلي صورة البطاقة'; });
+}
 const ar=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
 let i=0,score=0,res=[];
 const $=id=>document.getElementById(id);
@@ -189,7 +200,8 @@ function finish(){
 $('go').onclick=()=>{ i=0;score=0;res=[]; $('form').hidden=true; $('start').hidden=true; $('quiz').hidden=false; show(); };
 $('choices').onclick=e=>{const b=e.target.closest('button'); if(b) answer(b.dataset.a);};
 $('next').onclick=()=>{ if(i<Q.length-1){i++;show();} else finish(); };
-$('again').onclick=()=>{ $('end').hidden=true; $('start').hidden=false; $('form').hidden=false; document.querySelectorAll('.pledge input').forEach(c=>c.checked=false); };
+$('send').onclick=()=>{ save(); $('send').disabled=true; };
+$('again').onclick=()=>{ saved=false; $('send').disabled=false; $('sent').textContent=''; $('end').hidden=true; $('start').hidden=false; $('form').hidden=false; document.querySelectorAll('.pledge input').forEach(c=>c.checked=false); };
 try{const v=localStorage.getItem('radar-name'); if(v) $('nm').value=v;}catch(e){}
 $('nm').addEventListener('input',()=>{try{localStorage.setItem('radar-name',$('nm').value)}catch(e){}});
 // radar

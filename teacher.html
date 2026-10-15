@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>نتائج رادار الوعي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap">
+<style>
+:root{--bg:#EDF1EA;--panel:#fff;--ink:#13241D;--muted:#5C6B63;--line:#D3DDD5;--green:#0E6B43;--soft:#DCEDE3;--gold:#A7792A}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,sans-serif;padding:20px 16px 40px}
+.w{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1{font-family:"Reem Kufi",Tahoma,sans-serif;color:var(--green);margin:0;font-size:1.9rem}
+.p{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+input,button{font:inherit;padding:11px 14px;border-radius:12px;border:1px solid var(--line)}
+button{background:var(--green);color:#fff;border:0;font-weight:700;cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.s{background:var(--soft);border-radius:12px;padding:12px;text-align:center}
+.s b{display:block;font-family:"Reem Kufi",Tahoma;font-size:1.9rem;color:var(--green)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{color:var(--muted);font-weight:700}
+.err{color:#B23A26}
+</style></head><body><div class="w">
+<h1>نتائج رادار الوعي</h1>
+<div class="p" id="login"><label for="pin">رمز المعلمة</label><input id="pin" inputmode="numeric" placeholder="الرمز"><button id="go">اعرضي النتائج</button><p class="err" id="err"></p></div>
+<div id="out" hidden>
+ <div class="stats" id="stats"></div>
+ <div class="p"><b>المشاركات</b><div class="tw"><table><thead><tr><th>الاسم</th><th>الصف</th><th>الدرجة</th><th>بنود العهد</th><th>الوقت</th></tr></thead><tbody id="tb"></tbody></table></div>
+ <button id="ref">تحديث</button></div>
+</div></div>
+<script>
+const SB="https://gtgnekbrkczlszrwwuaz.supabase.co",SK="sb_publishable_hr0MOQOu8JEo3BcMnv1r8g_EyVjpb7_";
+const ar=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const $=i=>document.getElementById(i);
+async function load(){
+  $('err').textContent='';
+  const r=await fetch(SB+"/rest/v1/rpc/radar_list",{method:"POST",headers:{"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":"application/json"},body:JSON.stringify({p_pin:$('pin').value.trim()})});
+  if(!r.ok){$('err').textContent='الرمز غير صحيح';return}
+  const rows=await r.json(); try{sessionStorage.setItem('pin',$('pin').value.trim())}catch(e){}
+  $('login').hidden=true; $('out').hidden=false;
+  const by={}; rows.forEach(x=>by[x.class]=(by[x.class]||0)+1);
+  const avg=rows.length?(rows.reduce((a,x)=>a+x.score,0)/rows.length).toFixed(1):0;
+  const full=rows.filter(x=>x.score>=7).length;
+  $('stats').innerHTML=`<div class="s"><b>${ar(rows.length)}</b>مشاركة</div><div class="s"><b>${ar(avg)} / ٨</b>متوسط الدرجات</div><div class="s"><b>${ar(full)}</b>حارسة وعي (٧ فأعلى)</div>`+
+    Object.entries(by).map(([k,v])=>`<div class="s"><b>${ar(v)}</b>${k}</div>`).join('');
+  $('tb').innerHTML=rows.map(x=>`<tr><td>${x.name.replace(/</g,'&lt;')}</td><td>${x.class}</td><td>${ar(x.score)} / ٨</td><td>${ar(x.pledge)} / ٤</td><td>${new Date(x.created_at).toLocaleString('ar-SA',{weekday:'short',hour:'2-digit',minute:'2-digit'})}</td></tr>`).join('')||'<tr><td colspan="5">لا توجد مشاركات بعد</td></tr>';
+}
+$('go').onclick=load; $('ref').onclick=load;
+try{const p=sessionStorage.getItem('pin'); if(p){$('pin').value=p; load()}}catch(e){}
+</script></body></html>
