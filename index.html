@@ -7,21 +7,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
 <style>
 /* Layout: one narrow column like a phone screen; a radar "scans" incoming messages one by one, ending in a pledge card the student screenshots */
-:root{
+:root{color-scheme:light;
   --bg:#EDF1EA; --panel:#FFFFFF; --ink:#13241D; --muted:#5C6B63; --line:#D3DDD5;
   --green:#0E6B43; --green-soft:#DCEDE3; --red:#B23A26; --red-soft:#F6E1DC; --gold:#A7792A; --gold-soft:#F3E8D2;
   --bubble:#F7FAF6; --radar:#0E6B43;
   --f-display:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;
   --f-body:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0F1915; --panel:#16241E; --ink:#E7EFE9; --muted:#9DB0A5; --line:#2A3B33;
-  --green:#4FBF87; --green-soft:#183A2A; --red:#F08A73; --red-soft:#3A1F19; --gold:#DDB063; --gold-soft:#3A2F1A;
-  --bubble:#1B2B24; --radar:#4FBF87; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0F1915; --panel:#16241E; --ink:#E7EFE9; --muted:#9DB0A5; --line:#2A3B33;
-  --green:#4FBF87; --green-soft:#183A2A; --red:#F08A73; --red-soft:#3A1F19; --gold:#DDB063; --gold-soft:#3A2F1A;
-  --bubble:#1B2B24; --radar:#4FBF87; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0}
