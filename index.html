@@ -89,8 +89,8 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
   <section class="panel" id="form">
     <div class="row">
       <div><label for="nm">اسمك</label><input id="nm" type="text" placeholder="مثال: ريم محمد" autocomplete="off"></div>
-      <div><label for="cls">صفك</label>
-        <select id="cls"><option>الثالث الثانوي ٣/١</option><option>الثالث الثانوي ٣/٢</option><option>الثالث الثانوي ٣/٣</option><option>الثاني الثانوي</option></select></div>
+      <div><label for="cls">أنا</label>
+        <select id="cls"><option>طالبة</option><option>معلمة</option></select></div>
     </div>
     <div class="msg" aria-label="مثال على رسالة">
       <div class="sender"><span class="avatar">؟</span>رسالة مثال <span class="tag">غير موثّق</span></div>
@@ -181,7 +181,7 @@ function answer(a){
 }
 function finish(){
   $('quiz').hidden=true; $('end').hidden=false;
-  const nm=$('nm').value.trim()||'طالبة واعية';
+  const nm=$('nm').value.trim()||'مشاركة واعية';
   $('who').textContent=nm; $('whocls').textContent=$('cls').value;
   $('score').textContent=`${ar(score)} / ${ar(Q.length)}`;
   $('title').textContent=score>=7?'حارسة الوعي':score>=5?'رادار يقِظ':'رادار تحت التدريب';
