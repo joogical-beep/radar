@@ -130,14 +130,14 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
         <b>عهدي لوطني</b>
         <label><input type="checkbox" id="p1">أتحقق من المصدر قبل أن أشارك أي خبر.</label>
         <label><input type="checkbox" id="p2">أرفض أي فكر يدعو للكراهية أو الإقصاء أو العنف.</label>
-        <label><input type="checkbox" id="p3">أخبر أهلي أو معلمتي إذا تواصل معي غريب بطلب سرّي.</label>
+        <label><input type="checkbox" id="p3">أُبلغ من أثق به إذا تواصل معي غريب بطلب سرّي.</label>
         <label><input type="checkbox" id="p4">أمن وطني مسؤوليتي، والبلاغ عبر تطبيق «كلنا أمن».</label>
       </div>
       <p class="foot" id="stamp"></p>
-      <button class="primary" id="send">أرسلي نتيجتي لمعلمتي</button>
+      <button class="primary" id="send">سجّلي مشاركتي</button>
       <p class="foot" id="sent"></p>
     </div>
-    <p class="shot" style="margin-top:14px">علّمي على بنود العهد، واضغطي «أرسلي نتيجتي»، ثم صوّري البطاقة 📸</p>
+    <p class="shot" style="margin-top:14px">علّمي على بنود العهد، ثم اضغطي «سجّلي مشاركتي» واحتفظي بصورة بطاقتك 📸</p>
     <button class="ghost" id="again" style="margin-top:10px;width:100%">أعيدي المحاولة</button>
   </section>
 
@@ -161,7 +161,7 @@ function save(){ if(saved) return; saved=true;
   const pl=[...document.querySelectorAll('.pledge input')].filter(c=>c.checked).length;
   fetch(SB+"/rest/v1/radar_results",{method:"POST",headers:{"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":"application/json","Prefer":"return=minimal"},
     body:JSON.stringify({name:($('nm').value.trim()||'بدون اسم').slice(0,60),class:$('cls').value,score:score,pledge:pl})})
-   .then(r=>{ $('sent').textContent=r.ok?'✓ وصلت نتيجتك لمعلمتك':'لم تُرسل النتيجة، أرسلي صورة البطاقة'; })
+   .then(r=>{ $('sent').textContent=r.ok?'✓ سُجّلت مشاركتك في رادار الوعي، شكرًا لوعيك':'لم تُسجّل المشاركة، حاولي مرة أخرى'; })
    .catch(()=>{ $('sent').textContent='لم تُرسل النتيجة، أرسلي صورة البطاقة'; });
 }
 const ar=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
