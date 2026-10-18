@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تحدّي STREAM</title>
+<meta name="description" content="مين بيكتب الحلقة الثانية؟ ترتيب الفصول على منصة مدرستي">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@700;900&display=swap">
+<style>
+:root{--bg:#14162A;--panel:#1E2140;--panel2:#262A4F;--line:#343963;--ink:#F5EFE6;--muted:#A9ACC8;--coral:#FF5A5F;--gold:#F2B93B;
+ --c1:#3987e5;--c2:#d95926;--c3:#199e70}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 80% -10%,rgba(255,90,95,.25),transparent 55%),var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,sans-serif;min-height:100vh}
+.w{max-width:760px;margin:0 auto;padding:22px 16px 48px;display:flex;flex-direction:column;gap:18px}
+.en{font-family:Inter,sans-serif;letter-spacing:.02em}
+.top{display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:900;letter-spacing:.3em;font-size:.85rem}
+.tag{background:var(--coral);color:#fff;border-radius:999px;padding:4px 12px;font-size:.75rem;font-weight:900}
+.prog{display:flex;gap:6px}.prog i{flex:1;height:4px;border-radius:4px;background:var(--line)}.prog i.on{background:var(--coral)}
+h1{margin:6px 0 0;font-size:clamp(2rem,8vw,3.1rem);line-height:1.15}
+h1 span{color:var(--gold)}
+.lead{color:var(--muted);margin:6px 0 0;line-height:1.7}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;direction:ltr}
+.cd div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center}
+.cd b{display:block;font-family:Inter;font-weight:900;font-size:1.7rem}
+.cd small{color:var(--muted);font-size:.72rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px}
+.card h2{margin:0 0 12px;font-size:1.15rem;display:flex;gap:8px;align-items:center}
+.card h2::before{content:"";width:6px;height:20px;border-radius:3px;background:var(--coral)}
+.row{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.rk{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Inter;font-weight:900;font-size:1.2rem;background:var(--panel2)}
+.row.lead1 .rk{background:var(--gold);color:#14162A}
+.nm{font-weight:700;font-size:1.15rem;display:flex;gap:8px;align-items:center}
+.dot{width:12px;height:12px;border-radius:4px;display:inline-block}
+.bar{height:12px;border-radius:6px;background:var(--panel2);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.sc{text-align:center}.sc b{font-family:Inter;font-weight:900;font-size:1.9rem;display:block;line-height:1}.sc small{color:var(--muted);font-size:.72rem}
+.delta{font-size:.75rem;font-weight:700}.up{color:#4fd69c}.dn{color:var(--coral)}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rules div{background:var(--panel2);border-radius:14px;padding:12px 8px;text-align:center;font-weight:700;font-size:.9rem;line-height:1.4}
+.rules span{display:block;font-family:Inter;font-weight:900;color:var(--gold);font-size:1.3rem}
+.note{color:var(--muted);font-size:.82rem;margin:10px 0 0;line-height:1.7}
+.cls{display:grid;gap:14px}
+.cc{border-radius:18px;padding:14px;background:var(--panel2);border-top:5px solid}
+.cc h3{margin:0 0 10px;font-size:1.15rem;display:flex;justify-content:space-between;align-items:center}
+.cc h3 span{font-family:Inter;font-weight:900}
+.m{margin:10px 0}.m .l{display:flex;justify-content:space-between;font-size:.88rem}.m .l b{font-family:Inter}
+.m .t{position:relative;height:10px;border-radius:5px;background:#1a1d38;margin-top:6px}
+.m .t i{position:absolute;inset:0 auto 0 0;right:0;left:auto;height:100%;border-radius:5px}
+.m .t em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);opacity:.8}
+.mis{margin-top:12px;background:rgba(255,90,95,.12);border:1px dashed rgba(255,90,95,.6);border-radius:14px;padding:10px 12px;font-size:.9rem;line-height:1.7}
+.mis b{color:var(--gold)}
+svg text{font-family:"IBM Plex Sans Arabic",Tahoma}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);margin-bottom:6px}
+.tip{position:fixed;pointer-events:none;background:#0d0f1f;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.8rem;opacity:0;transition:opacity .15s}
+footer{color:var(--muted);font-size:.8rem;text-align:center;line-height:1.8}
+table{width:100%;border-collapse:collapse;font-size:.85rem}th,td{padding:8px 6px;border-top:1px solid var(--line);text-align:center}th{color:var(--muted);font-weight:600}
+details summary{cursor:pointer;color:var(--muted);font-size:.85rem;margin-top:8px}
+</style></head><body><div class="w">
+<div class="top"><span class="brand en">STREAM</span><span class="tag en">S1 · E2</span></div>
+<div class="prog"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+<div>
+ <h1>مين بيكتب<br><span>الحلقة الثانية؟</span></h1>
+ <p class="lead">الفصل اللي يتصدّر على منصة مدرستي يقرر وش يصير لنورة، ويُعلن اسمه في بداية الحلقة الثانية.</p>
+</div>
+<div class="cd" id="cd" aria-label="العد التنازلي للحلقة الثانية"><div><b id="d">0</b><small>يوم</small></div><div><b id="h">0</b><small>ساعة</small></div><div><b id="mi">0</b><small>دقيقة</small></div><div><b id="s">0</b><small>ثانية</small></div></div>
+
+<section class="card"><h2>ترتيب الفصول</h2><div id="board"></div>
+ <p class="note" id="upd"></p></section>
+
+<section class="card"><h2>كيف تُحسب نقاط فصلك؟</h2>
+ <div class="rules"><div><span class="en">1</span>تسليم الواجبات</div><div><span class="en">2</span>دخول الاختبارات</div><div><span class="en">3</span>متوسط الدرجات</div></div>
+ <p class="note">نقاط الفصل = متوسط المؤشرات الثلاثة من تقرير منصة مدرستي. كل واجب تسلّمينه وكل اختبار تدخلينه يرفع فصلك.</p></section>
+
+<section><div class="cls" id="cls"></div></section>
+
+<section class="card"><h2>التقدّم أسبوعًا بأسبوع</h2>
+ <div class="leg" id="leg"></div><div id="chart"></div>
+ <details><summary>عرض الأرقام في جدول</summary><table id="tbl"></table></details></section>
+
+<footer>تحدّي STREAM · اللغة الإنجليزية · الثانوية الرابعة والثلاثون بعد المئة<br>إعداد: الجوهرة رازن</footer>
+</div>
+<div class="tip" id="tip"></div>
+<script src="data.js"></script>
+<script>
+const D=window.STREAM_DATA, W=D.weeks, last=W[W.length-1], prev=W.length>1?W[W.length-2]:null;
+const COL={"٣/١":"var(--c1)","٣/٢":"var(--c2)","٣/٣":"var(--c3)"}, HEX={"٣/١":"#3987e5","٣/٢":"#d95926","٣/٣":"#199e70"};
+const ar=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]).replace('.','٫');
+const score=c=>(c.hs+c.ts+(c.ta+c.ha)/2)/3;
+const fmt=x=>ar(x.toFixed(1));
+// countdown
+const T=new Date(D.episodeAt).getTime();
+function tick(){let s=Math.max(0,Math.floor((T-Date.now())/1000));const v=[Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),s%60];
+ ['d','h','mi','s'].forEach((id,i)=>document.getElementById(id).textContent=v[i])}
+tick();setInterval(tick,1000);
+// board
+const names=Object.keys(last.classes);
+const ranked=names.map(k=>({k,s:score(last.classes[k]),p:prev&&prev.classes[k]?score(prev.classes[k]):null})).sort((a,b)=>b.s-a.s);
+const max=Math.max(...ranked.map(r=>r.s),1);
+document.getElementById('board').innerHTML=ranked.map((r,i)=>{
+ const d=r.p==null?'':(r.s-r.p>=0?`<span class="delta up">▲ ${fmt(r.s-r.p)}</span>`:`<span class="delta dn">▼ ${fmt(r.p-r.s)}</span>`);
+ return `<div class="row ${i==0?'lead1':''}"><div class="rk">${i==0?'👑':ar(i+1)}</div>
+ <div><div class="nm"><span class="dot" style="background:${COL[r.k]}"></span>صف ${r.k} ${d}</div><div class="bar"><i data-w="${r.s/max*100}" style="background:${COL[r.k]}"></i></div></div>
+ <div class="sc"><b>${fmt(r.s)}</b><small>نقطة</small></div></div>`}).join('');
+const gapTop=ranked[0].s-ranked[1].s;
+document.getElementById('upd').textContent=`آخر تحديث: ${D.updated} · الفرق بين الأول والثاني ${fmt(gapTop)} نقطة فقط`;
+// class cards
+const tg=D.targets;
+function meter(lab,v,t,col){return `<div class="m"><div class="l"><span>${lab}</span><b>${ar(v)}٪</b></div><div class="t"><i style="width:${v}%;background:${col}"></i><em style="right:${t}%" title="الهدف"></em></div></div>`}
+document.getElementById('cls').innerHTML=names.map(k=>{const c=last.classes[k],avg=Math.round((c.ta+c.ha)/2);
+ return `<div class="cc" style="border-top-color:${COL[k]}"><h3>صف ${k}<span>${fmt(score(c))}</span></h3>
+ ${meter('تسليم الواجبات',c.hs,tg.hs,COL[k])}${meter('دخول الاختبارات',c.ts,tg.ts,COL[k])}${meter('متوسط الدرجات',avg,tg.avg,COL[k])}
+ <div class="mis">🎯 <b>مهمة فصلك هذا الأسبوع:</b> ${ar(c.noTest)} طالبة من ${ar(c.n)} ما دخلت أي اختبار بعد — كل اختبار يرفع نقاط فصلك. وأضعف واجب عندكم: <b>${c.weak[0]}</b> (${ar(c.weak[1])}٪ تسليم).</div></div>`}).join('')
+ +`<p class="note" style="text-align:center">الخط الأبيض على كل شريط = هدف الفصل (واجبات ${ar(tg.hs)}٪ · اختبارات ${ar(tg.ts)}٪ · درجات ${ar(tg.avg)}٪)</p>`;
+// progress chart
+document.getElementById('leg').innerHTML=names.map(k=>`<span><span class="dot" style="background:${COL[k]}"></span> صف ${k}</span>`).join('');
+const CW=420,CH=260,pl=34,pr=10,pt=14,pb=40,n=Math.max(W.length,4);
+const xs=i=>CW-pr-(i+.5)*(CW-pl-pr)/n, ys=v=>pt+(CH-pt-pb)*(1-v/100);
+let sv=`<svg viewBox="0 0 ${CW} ${CH}" width="100%" role="img" aria-label="تقدّم نقاط الفصول أسبوعيًا">`;
+[0,25,50,75,100].forEach(g=>sv+=`<line x1="${pl}" x2="${CW-pr}" y1="${ys(g)}" y2="${ys(g)}" stroke="#343963" stroke-width="1"/><text x="${pl-8}" y="${ys(g)+4}" fill="#A9ACC8" font-size="13" text-anchor="end">${ar(g)}</text>`);
+for(let i=0;i<n;i++)sv+=`<text x="${xs(i)}" y="${CH-14}" fill="${i<W.length?'#F5EFE6':'#5a5f8a'}" font-size="14" text-anchor="middle">${W[i]?W[i].label:'الأسبوع '+ar(i+1)}</text>`;
+names.forEach(k=>{const pts=W.map((w,i)=>w.classes[k]?[xs(i),ys(score(w.classes[k])),score(w.classes[k]),w.label]:null).filter(Boolean);
+ if(pts.length>1)sv+=`<polyline points="${pts.map(p=>p[0]+','+p[1]).join(' ')}" fill="none" stroke="${HEX[k]}" stroke-width="2"/>`;
+ pts.forEach(p=>sv+=`<circle cx="${p[0]}" cy="${p[1]}" r="7" fill="${HEX[k]}" stroke="#1E2140" stroke-width="2" data-t="صف ${k} · ${p[3]}: ${fmt(p[2])} نقطة"/><circle cx="${p[0]}" cy="${p[1]}" r="16" fill="transparent" data-t="صف ${k} · ${p[3]}: ${fmt(p[2])} نقطة"/>`)});
+sv+='</svg>';document.getElementById('chart').innerHTML=sv;
+const tip=document.getElementById('tip');
+document.querySelectorAll('[data-t]').forEach(e=>{e.addEventListener('pointerenter',ev=>{tip.textContent=e.dataset.t;tip.style.opacity=1});
+ e.addEventListener('pointermove',ev=>{tip.style.left=(ev.clientX+12)+'px';tip.style.top=(ev.clientY-30)+'px'});e.addEventListener('pointerleave',()=>tip.style.opacity=0)});
+document.getElementById('tbl').innerHTML='<tr><th>الأسبوع</th>'+names.map(k=>`<th>صف ${k}</th>`).join('')+'</tr>'+W.map(w=>`<tr><td>${w.label}</td>`+names.map(k=>`<td>${w.classes[k]?fmt(score(w.classes[k])):'—'}</td>`).join('')+'</tr>').join('');
+requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.bar i').forEach(b=>b.style.width=b.dataset.w+'%'),150));
+</script></body></html>
