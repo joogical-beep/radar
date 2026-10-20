@@ -97,13 +97,14 @@ tick();setInterval(tick,1000);
 const names=Object.keys(last.classes);
 const ranked=names.map(k=>({k,s:score(last.classes[k]),p:prev&&prev.classes[k]?score(prev.classes[k]):null})).sort((a,b)=>b.s-a.s);
 const max=Math.max(...ranked.map(r=>r.s),1);
+const R1=x=>Math.round(x*10)/10;let rk=[];ranked.forEach((r,i)=>{rk[i]=(i>0&&R1(r.s)==R1(ranked[i-1].s))?rk[i-1]:i});
 document.getElementById('board').innerHTML=ranked.map((r,i)=>{
  const d=r.p==null?'':(r.s-r.p>=0?`<span class="delta up">▲ ${fmt(r.s-r.p)}</span>`:`<span class="delta dn">▼ ${fmt(r.p-r.s)}</span>`);
- return `<div class="row ${i==0?'lead1':''}"><div class="rk">${i==0?'👑':ar(i+1)}</div>
+ return `<div class="row ${rk[i]==0?'lead1':''}"><div class="rk">${rk[i]==0?'👑':ar(rk[i]+1)}</div>
  <div><div class="nm"><span class="dot" style="background:${COL[r.k]}"></span>صف ${r.k} ${d}</div><div class="bar"><i data-w="${r.s/max*100}" style="background:${COL[r.k]}"></i></div></div>
  <div class="sc"><b>${fmt(r.s)}</b><small>نقطة</small></div></div>`}).join('');
 const gapTop=ranked[0].s-ranked[1].s;
-document.getElementById('upd').textContent=`آخر تحديث: ${D.updated} · الفرق بين الأول والثاني ${fmt(gapTop)} نقطة فقط`;
+document.getElementById('upd').textContent=R1(gapTop)==0?`آخر تحديث: ${D.updated} · تعادلٌ على الصدارة! أي واجب أو اختبار الآن يحسم المركز الأول`:`آخر تحديث: ${D.updated} · الفرق بين الأول والثاني ${fmt(gapTop)} نقطة فقط`;
 // class cards
 const tg=D.targets;
 function meter(lab,v,t,col){return `<div class="m"><div class="l"><span>${lab}</span><b>${ar(v)}٪</b></div><div class="t"><i style="width:${v}%;background:${col}"></i><em style="right:${t}%" title="الهدف"></em></div></div>`}
