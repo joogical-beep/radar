@@ -65,6 +65,9 @@ details summary{cursor:pointer;color:var(--muted);font-size:.85rem;margin-top:8p
 <p class="lead" style="margin:0;text-align:center;font-weight:700;color:var(--gold)">⏳ إعلان الفصل الفائز: الخميس ٢٩ أكتوبر · ٦ مساءً</p>
 <div class="cd" id="cd" aria-label="العد التنازلي لإعلان النتيجة"><div><b id="d">0</b><small>يوم</small></div><div><b id="h">0</b><small>ساعة</small></div><div><b id="mi">0</b><small>دقيقة</small></div><div><b id="s">0</b><small>ثانية</small></div></div>
 
+<section class="card" id="spc" style="border-color:var(--gold)"><h2>⚡ سباق <span id="spt" style="color:var(--gold)"></span></h2><div id="sp"></div>
+ <p class="note" id="spn"></p></section>
+
 <section class="card"><h2>ترتيب الفصول</h2><div id="board"></div>
  <p class="note" id="upd"></p></section>
 
@@ -81,7 +84,7 @@ details summary{cursor:pointer;color:var(--muted);font-size:.85rem;margin-top:8p
 <footer>تحدّي STREAM · اللغة الإنجليزية · الثانوية الرابعة والثلاثون بعد المئة<br>إعداد: الجوهرة رازن</footer>
 </div>
 <div class="tip" id="tip"></div>
-<script src="data.js?v=20261027c"></script>
+<script src="data.js?v=20261030a"></script>
 <script>
 const D=window.STREAM_DATA, W=D.weeks, last=W[W.length-1], prev=W.length>1?W[W.length-2]:null;
 const COL={"٣/١":"var(--c1)","٣/٢":"var(--c2)","٣/٣":"var(--c3)"}, HEX={"٣/١":"#3987e5","٣/٢":"#d95926","٣/٣":"#199e70"};
@@ -105,6 +108,15 @@ document.getElementById('board').innerHTML=ranked.map((r,i)=>{
  <div class="sc"><b>${fmt(r.s)}</b><small>نقطة</small></div></div>`}).join('');
 const gapTop=ranked[0].s-ranked[1].s;
 document.getElementById('upd').textContent=R1(gapTop)==0?`آخر تحديث: ${D.updated} · تعادلٌ على الصدارة! أي واجب أو اختبار الآن يحسم المركز الأول`:`آخر تحديث: ${D.updated} · الفرق بين الأول والثاني ${fmt(gapTop)} نقطة فقط`;
+// sprint
+if(D.sprint){const S=D.sprint,sk=Object.keys(S.classes).map(k=>({k,...S.classes[k],p:S.classes[k].done/S.classes[k].n*100})).sort((a,b)=>b.p-a.p);
+ document.getElementById('spt').textContent=S.title;
+ document.getElementById('sp').innerHTML=sk.map((r,i)=>`<div class="row ${i==0?'lead1':''}"><div class="rk">${i==0?'👑':ar(i+1)}</div>
+ <div><div class="nm"><span class="dot" style="background:${COL[r.k]}"></span><span style="white-space:nowrap">صف ${r.k}</span></div><div class="bar"><i data-w="${r.p}" style="background:${COL[r.k]}"></i></div><div class="note" style="margin-top:6px">سلّمت ${ar(r.done)} من ${ar(r.n)} · باقي ${ar(r.n-r.done)}</div></div>
+ <div class="sc"><b>${ar(Math.round(r.p))}٪</b><small>سلّمن</small></div></div>`).join('');
+ const T2=sk.reduce((a,r)=>a+r.done,0),N2=sk.reduce((a,r)=>a+r.n,0);
+ document.getElementById('spn').textContent=`تحديث: ${S.date} · سلّمت ${ar(T2)} طالبة من ${ar(N2)}، وكل من سلّمت أخذت الدرجة كاملة. الواجب مفتوح: كل تسليم جديد يقلب الترتيب!`;
+} else document.getElementById('spc').remove();
 // class cards
 const tg=D.targets;
 function meter(lab,v,t,col){return `<div class="m"><div class="l"><span>${lab}</span><b>${ar(v)}٪</b></div><div class="t"><i style="width:${v}%;background:${col}"></i><em style="right:${t}%" title="الهدف"></em></div></div>`}
